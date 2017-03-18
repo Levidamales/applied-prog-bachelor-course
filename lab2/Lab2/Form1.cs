@@ -13,7 +13,7 @@ namespace Lab2
 {
     public partial class Form1 : Form
     {
-        Model model = new Model();
+        Model.ContentHolder content = new Model.ContentHolder();
         public Form1()
         {
             InitializeComponent();
@@ -21,12 +21,17 @@ namespace Lab2
 
         private void openButton_Click(object sender, EventArgs e)
         {
-            model.loadFile(textBox1);
+            Model.FileReader reader = new Model.FileReader();
+            reader.read(content);
+            textBox1.Text = content.text;
+            Text = content.path;
         }
 
         private void saveButton_Click(object sender, EventArgs e)
         {
-            model.saveFile(textBox1);
+            content.text = textBox1.Text;
+            Model.FileWriter writer = new Model.FileWriter();
+            writer.write(content);
         }
     }
 }
